@@ -190,9 +190,9 @@ If you use this code or data in your research, please cite:
 
 ## Contact
 
-- **Corresponding Author**: Zhang Aiguo, Xiamen University
+- **Corresponding Author**: Zhang Aiguo, Xiamen University of Technology
 - **Email**: 623467897@qq.com
-- **Institution**: School of Earth Sciences, Xiamen University, Xiamen, China
+- **Institution**: College of Computer and Information Engineering, Xiamen University of Technology, Xiamen, China
 
 ---
 
