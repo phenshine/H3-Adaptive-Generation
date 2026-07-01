@@ -1,0 +1,278 @@
+{
+  "experiment_info": {
+    "title": "Content-Aware Adaptive DGGS Construction via Lightweight Oriented Object Detection",
+    "short_title": "H3 Adaptive DGGS — Haicang Bay",
+    "study_area": "Haicang Bay, Xiamen, China",
+    "study_area_zh": "厦门海沧湾",
+    "bbox": {
+      "lon_min": 117.9742,
+      "lat_min": 24.4393,
+      "lon_max": 118.1457,
+      "lat_max": 24.561
+    },
+    "area_km2": 233.6,
+    "date": "2026-04-30",
+    "algorithm": "The Hand + H3 DGGS (Aperture-7)",
+    "data_source": "Sub-meter remote sensing imagery (0.5m GSD)",
+    "detection_model": "YOLO11n-OBB"
+  },
+  "output_files": {
+    "geospatial_data": [
+      {
+        "filename": "detections.geojson",
+        "description": "YOLO11n-OBB目标检测结果（标准化为GeoJSON多边形）",
+        "records": 1438,
+        "format": "GeoJSON (EPSG:4326)",
+        "size_bytes": 1429105
+      },
+      {
+        "filename": "H0_grid.geojson",
+        "description": "H3 Resolution-7 初始覆盖格网（H0层）",
+        "records": 81,
+        "format": "GeoJSON (EPSG:4326)",
+        "size_bytes": 54880
+      },
+      {
+        "filename": "h3_adaptive_grid.geojson",
+        "description": "The Hand自适应H3格网 — 全部2853个叶子节点",
+        "records": 2853,
+        "format": "GeoJSON (EPSG:4326)",
+        "size_bytes": 1362912
+      }
+    ],
+    "data_tables": [
+      {
+        "filename": "target_cell_relations.csv",
+        "description": "目标与H0格网映射关系（Nyquist拓扑分类）",
+        "rows": 1438,
+        "columns": [
+          "target_id",
+          "target_class",
+          "confidence",
+          "h3_cell",
+          "in_h0_grid",
+          "is_center"
+        ],
+        "size_bytes": 71456
+      },
+      {
+        "filename": "adaptive_tree_leaves.csv",
+        "description": "自适应树叶子节点详细属性",
+        "rows": 2853,
+        "columns": [
+          "h3_cell",
+          "resolution",
+          "targets",
+          "area_density",
+          "max_confidence",
+          "is_h0"
+        ],
+        "size_bytes": 103378
+      },
+      {
+        "filename": "boundary_encoding_summary.csv",
+        "description": "边界编码汇总（H3-Ascend策略）",
+        "rows": 1438,
+        "columns": [
+          "target_id",
+          "strategy",
+          "nca_cell",
+          "nca_resolution",
+          "n_h3_cells",
+          "confidence",
+          "area"
+        ],
+        "size_bytes": 76263
+      },
+      {
+        "filename": "quantitative_analysis.csv",
+        "description": "定量分析指标汇总（25项）",
+        "rows": 25,
+        "columns": [
+          "Metric",
+          "Value",
+          "Unit",
+          "Description"
+        ],
+        "size_bytes": 2182
+      },
+      {
+        "filename": "Table1_algorithm_complexity.csv",
+        "description": "算法各步骤时间/空间复杂度对比表",
+        "rows": 10,
+        "size_bytes": 912
+      },
+      {
+        "filename": "Table2_performance_summary.csv",
+        "description": "性能指标全面对比表（41项）",
+        "rows": 41,
+        "size_bytes": 1092
+      }
+    ],
+    "visualizations": [
+      {
+        "filename": "H3_steps_2_1_to_2_4_result.png",
+        "description": "步骤2.1~2.4：研究区H3初始格网可视化",
+        "resolution": "300 DPI",
+        "size_bytes": 435733
+      },
+      {
+        "filename": "h3_steps_4_result.png",
+        "description": "步骤4：The Hand自适应分裂过程可视化",
+        "resolution": "300 DPI",
+        "size_bytes": 326123
+      },
+      {
+        "filename": "qualitative_comparison.png",
+        "description": "定性三图对比：原始检测 vs 传统Res10 vs The Hand自适应",
+        "resolution": "300 DPI",
+        "size_bytes": 2539462
+      },
+      {
+        "filename": "quantitative_analysis.png",
+        "description": "定量效率对比4子图（格网数/存储/查询/吞吐量）",
+        "resolution": "300 DPI",
+        "size_bytes": 403243
+      },
+      {
+        "filename": "Figure1_framework_overview.png",
+        "description": "论文主图：完整框架流程+4子图概览（300DPI）",
+        "resolution": "300 DPI",
+        "size_bytes": 1326828
+      }
+    ],
+    "database_scripts": [
+      {
+        "filename": "h3_adaptive_setup.sql",
+        "description": "PostgreSQL+PostGIS+H3扩展 建库/建表/索引/视图/函数脚本",
+        "tables": 3,
+        "views": 2,
+        "functions": 2,
+        "data_rows_inserted": 3000,
+        "size_bytes": 210414
+      }
+    ],
+    "structured_data": [
+      {
+        "filename": "adaptive_tree.json",
+        "description": "原始自适应树结构（Python dict，3315节点）",
+        "nodes": 3315,
+        "size_bytes": 614798
+      },
+      {
+        "filename": "h3_tree_structure.json",
+        "description": "带完整元数据的自适应树结构（全部节点）",
+        "nodes": 3315,
+        "size_bytes": 589926
+      },
+      {
+        "filename": "boundary_encoding.json",
+        "description": "边界编码完整结构（JSON）",
+        "size_bytes": 352291
+      }
+    ],
+    "documentation": [
+      {
+        "filename": "experiment_report.txt",
+        "description": "完整实验报告（8节，含核心指标与结论）",
+        "sections": 8,
+        "size_bytes": 6131
+      },
+      {
+        "filename": "experiment_manifest.json",
+        "description": "本文件：所有输出文件的完整清单与论文章节映射",
+        "size_bytes": 0
+      }
+    ]
+  },
+  "key_metrics": {
+    "input": {
+      "study_area_km2": 233.6,
+      "detected_targets": 1438,
+      "target_classes": 12,
+      "class_distribution": {
+        "large vehicle": 363,
+        "storage tank": 348,
+        "ship": 310,
+        "basketball court": 84,
+        "bridge": 66,
+        "plane": 62,
+        "ground track field": 62,
+        "soccer ball field": 59,
+        "roundabout": 29,
+        "tennis court": 27,
+        "harbor": 20,
+        "small vehicle": 8
+      },
+      "initial_resolution": 7,
+      "max_resolution": 10
+    },
+    "the_hand_output": {
+      "h0_cells": 81,
+      "total_tree_nodes": 3315,
+      "adaptive_leaf_cells": 2853,
+      "split_nodes": 462,
+      "leaf_res_distribution": {
+        "Res7": 31,
+        "Res8": 182,
+        "Res9": 932,
+        "Res10": 1708
+      }
+    },
+    "efficiency": {
+      "traditional_res10_cells": 17573,
+      "adaptive_cells": 2853,
+      "grid_reduction_pct": 83.8,
+      "traditional_storage_mb": 0.54,
+      "adaptive_storage_mb": 0.2,
+      "storage_saved_pct": 62.3
+    },
+    "query_performance": {
+      "ship_query_cells": 1977,
+      "ship_query_time_ms": 0.7513,
+      "all_targets_cells": 2826,
+      "all_targets_time_ms": 0.9412,
+      "throughput_cells_per_s": 3002550
+    }
+  },
+  "paper_sections_mapping": {
+    "Section1_Introduction": [
+      "experiment_report.txt"
+    ],
+    "Section2_StudyArea_DataDescription": [
+      "detections.geojson",
+      "H3_steps_2_1_to_2_4_result.png"
+    ],
+    "Section3_Methodology_TheHand": [
+      "Figure1_framework_overview.png",
+      "h3_tree_structure.json",
+      "adaptive_tree.json"
+    ],
+    "Section4_HMRI_BoundaryEncoding": [
+      "boundary_encoding.json",
+      "boundary_encoding_summary.csv",
+      "h3_adaptive_setup.sql"
+    ],
+    "Section5_ResultsAnalysis": [
+      "qualitative_comparison.png",
+      "quantitative_analysis.png",
+      "quantitative_analysis.csv",
+      "Table1_algorithm_complexity.csv",
+      "Table2_performance_summary.csv"
+    ],
+    "Section6_Discussion_Conclusion": [
+      "experiment_report.txt",
+      "experiment_manifest.json"
+    ]
+  },
+  "workflow_guide": {
+    "step1_data_prep": "运行 h3_steps_2_1_to_2_4.py → detections.geojson, H0_grid.csv",
+    "step2_mapping": "运行 h3_steps_3_1_to_3_3.py → target_cell_relations.csv",
+    "step3_adaptive": "运行 h3_steps_4_1_to_4_5.py → adaptive_tree.json, adaptive_tree_leaves.csv",
+    "step4_encoding": "运行 h3_steps_5_1_to_5_2.py → boundary_encoding.json",
+    "step5_analysis": "运行 h3_steps_6_1_to_6_4.py → qualitative_comparison.png, quantitative_analysis.csv",
+    "step6_paper_figs": "运行 h3_steps_7_1_to_7_4.py → Figure1_framework_overview.png, experiment_report.txt",
+    "step7_export": "运行 h3_steps_8_1_to_8_4.py → h3_adaptive_setup.sql, h3_tree_structure.json, h3_adaptive_grid.geojson",
+    "step8_db_import": "psql -U postgres -d yourdb -f h3_adaptive_setup.sql"
+  }
+}
